@@ -1,0 +1,347 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+<body data-spy="scroll" data-target="#site-nav">
+    <nav id="site-nav" class="navbar navbar-fixed-top navbar-custom">
+        <div class="container">
+            <div class="navbar-header">
+
+                {% for detail in landing_details  %}
+
+                <!-- logo -->
+                <div class="site-branding">
+                    <a class="logo" href="#">
+                        
+                        <!-- logo image  -->
+                        <img src="{{detail.logo}}" alt="Logo">
+                        {% comment %} <img src="{% static 'assets/images/conference_logo.png' %}" alt="Logo"> {% endcomment %}
+
+                        {{detail.conference_name}}
+                    </a>
+                </div>
+                {% endfor %}
+
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-items" aria-expanded="false">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+
+            </div><!-- /.navbar-header -->
+
+            <div class="collapse navbar-collapse" id="navbar-items">
+                <ul class="nav navbar-nav navbar-right">
+
+                    <!-- navigation menu -->
+                    <li class="active"><a data-scroll href="#about">About</a></li>
+                    <li><a data-scroll href="#speakers">Speakers</a></li>              
+                    <li><a data-scroll href="#schedule">Schedule</a></li>                  
+                    <li><a data-scroll href="#partner">Partner</a></li>                  
+                    <li><a data-scroll href="#faq">FAQ</a></li>
+                    <li><a data-scroll href="#photos">Photos</a></li>
+                
+                </ul>
+            </div>
+        </div><!-- /.container -->
+    </nav>
+
+    <header id="site-header" class="site-header valign-center">
+        {% for detail in landing_details %}
+        <div class="intro">
+
+            <h2> {{detail.conference_date|date:"M d, Y"}} / {{detail.conference_hallname}}</h2>
+            
+            <h1>{{detail.conference_name}}</h1>
+            
+            <p>{{detail.title}}</p>
+            
+            <a class="btn btn-white" data-scroll href="#registration">Register Now</a>
+        
+        </div>
+        {%endfor %}
+    </header>
+
+    <section id="about" class="section about">
+        <div class="container">
+            <div class="row">
+                {% for data in about %}
+                <div class="col-sm-6">
+
+                    <h3 class="section-title">About Us</h3>
+
+                    <p>{{data.description | safe}}</p>
+
+                    <figure>
+                        <img alt="about-us" class="img-responsive" src="{{data.photo.url}}">
+                    </figure>
+
+                </div><!-- /.col-sm-6 -->
+
+                <div class="col-sm-6">
+
+                    <h3 class="section-title multiple-title">What is Our Goal?</h3>
+
+                    <p>{{data.goal_description | safe}}</p>
+                    {% endfor %}
+
+                    <ul class="list-arrow-right">
+                        {% for point in hightlighpoints %}
+                            <li>{{point.highlight_points}}</li>
+                        {% endfor %}
+                    </ul>
+
+                </div><!-- /.col-sm-6 -->
+            </div><!-- /.row -->
+        </div><!-- /.container -->
+    </section>
+
+    <section id="facts" class="section bg-image-1 facts text-center">
+        <div class="container">
+        {% for data in landing_details %}
+            <div class="row">
+                <div class="col-sm-3">
+
+                    <i class="ion-ios-calendar"></i>
+                    <h3>{{data.conference_date|date:"Y"}}<br>{{data.conference_date|date:"M d"}}</h3>
+                
+                </div>
+                <div class="col-sm-4">
+
+                    <i class="ion-ios-location"></i>
+                    <h3>{{data.state}}<br>{{data.country}}</h3>
+                
+                </div>
+    
+                {% for speaker_count in speaker_count %}
+                <div class="col-sm-4">
+                
+                    <i class="ion-speakerphone"></i>
+                    <h3>{{speaker_count}}<br>Speakers</h3>
+                
+                </div>
+                {% endfor %}
+            </div><!-- row -->
+        {% endfor %}
+        </div><!-- container -->
+    </section>
+
+    <section id="speakers" class="section speakers">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+
+                    <h3 class="section-title">Speakers</h3>
+                
+                </div>
+            </div>
+
+            <div class="row">
+                {% for speaker in speakers %}
+                <div class="col-md-4">
+                    <div class="speaker">
+
+                        <figure>
+                            <img alt="" class="img-responsive center-block" src="{{speaker.photo.url}}">
+                        </figure>
+
+                        <h4>{{speaker.name}}</h4>
+
+                        <p>{{speaker.designation}}</p>
+
+                        <ul class="social-block">
+                            <li><a href="{{speaker.twitter_link}}"><i class="ion-social-twitter"></i></a></li>
+                            <li><a href="{{speaker.fb_link}}"><i class="ion-social-facebook"></i></a></li>
+                            <li><a href="{{speaker.linkedin_link}}"><i class="ion-social-linkedin-outline"></i></a></li>
+                            <li><a href="{{speaker.email}}"><i class="ion-social-googleplus"></i></a></li>
+                        </ul>
+
+                    </div><!-- /.speaker -->
+                </div><!-- /.col-md-4 -->
+                {% endfor %}
+            </div><!-- /.row -->
+
+        </div>
+    </section>
+
+    {% for ticket in ticket %}
+        {% if ticket.status == 'Open' %}
+            <section id="registration" class="section registration">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <h3 class="section-title">Registration &amp; Pricing</h3>
+                        </div>
+                    </div>
+                        
+                    <form method="POST" action="{% url 'register' %}" id="registration-form">
+                        {% csrf_token %}
+                        <div class="row">
+                            <div class="col-md-12" id="registration-msg" style="display:none;">
+                                <div class="alert"></div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <input type="text" class="form-control" placeholder="First Name" id="fname" name="first_name" required>
+                                </div>
+
+                                <div class="form-group">
+                                    <input type="text" class="form-control" placeholder="Last Name" id="lname" name="last_name" required>
+                                </div>
+
+                                <div class="form-group">
+                                    <input type="email" class="form-control" placeholder="Email" id="email" name="email" required>
+                                </div>
+
+                                <div class="form-group">
+                                    <input type="text" class="form-control" placeholder="Phone" id="cell" name="phone" required>
+                                </div>
+                            </div>
+
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <input type="text" class="form-control" placeholder="Address" id="address" name="address" required>
+                                </div>
+
+                                <div class="form-group">
+                                    <input type="text" class="form-control" placeholder="Zip Code" id="zip" name="zip" required>
+                                </div>
+
+                                <div class="form-group">
+                                    <input type="text" class="form-control" placeholder="City" name="city" id="city" required>
+                                </div>
+
+                                <div class="form-group">
+                                    <select class="form-control" name="program" id="program" required>
+                                        <option readonly>Select Your Program</option>
+                                        <option>Workshop</option>
+                                        <option>Tech Talk</option>
+                                        <option>Conference</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="text-center mt20">
+                            <button type="submit" class="btn btn-black" id="registration-submit-btn">Submit</button>
+                        </div>
+                    </form>
+                </div>
+            </section>
+        {% else %}
+            <section id="registration" class="section registration">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <h3 class="section-title">Registration is complete, sorry for the inconvenience</h3>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        {% endif %}
+    {% endfor %}
+
+    <section id="schedule" class="section schedule">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <h3 class="section-title">Event Schedule</h3>
+                </div>
+            </div>
+            <div class="row">
+                {% for schedule in schedule %}
+                <div class="col-md-4 col-sm-6">
+                    <div class="schedule-box">
+                        <div class="time">
+                            <time datetime="{{schedule.start_time}}">{{schedule.start_time}}</time> - <time datetime="{{schedule.end_time}}">10:00 am</time>
+                        </div>
+                        <h3>{{schedule.title}}</h3>
+                        <p>{{schedule.speaker_designation}}</p>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+        
+    </section>
+
+    <section id="partner" class="section partner">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <h3 class="section-title">Event Partner</h3>
+                </div>
+            </div>
+            
+            <div class="row">
+                {% for partner in  partner%}
+                <div class="col-sm-3">
+                    <img src={{partner.logo}} class="partner-box">
+                </div>
+                {% endfor %}
+            </div>
+  
+    </section>
+
+    <section id="faq" class="section faq">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <h3 class="section-title">Event FAQs</h3>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+
+                    {% for faq in faq %}
+                    <h4>{{forloop.counter}}) {{faq.headline}}</h4>
+                    <h8>{{faq.description | safe}}</h8>
+                    {% endfor %}
+
+                </div>
+            </div>
+    </section>
+
+    <section id="photos" class="section photos">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <h3 class="section-title">Photos</h3>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <ul class="grid">
+                        {% for photo in photos %}
+                        <li class="grid-item grid-item-sm-3">
+                            <img alt=""  class="img-responsive center-block" src="{{photo.image.url}}">
+                        </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>            
+        </div>
+    </section>
+
+    <section id="location" class="section location">
+        <div class="container">
+            {% for address in address %}
+            <div class="row">
+                <div class="col-sm-3">
+                    <h3 class="section-title">Event Location</h3>
+                    <address>
+                        <p>{{address.name}}</p>
+                        <p>{{address.address | safe}}</p>
+                        <p>Phone: {{address.phone}}</p>
+                        <p>Email: {{address.email}}</p>
+                    </address>
+                </div>
+                <div class="col-sm-9">
+                     <iframe src="{{address.google_map_embed_location}}" width="100%" height="450" frameborder="0" style="border:0" allowfullscreen></iframe>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </section>
+
+{% endblock %}

@@ -1,0 +1,46 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Conference</title>
+
+    <link rel="stylesheet" href="{% static 'bower_components/bootstrap/dist/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'bower_components/ionicons/css/ionicons.min.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/main.css' %}">
+</head>
+
+{% block content %}
+
+{% endblock %}
+
+
+<footer class="site-footer">
+    <div class="container">
+        <div class="row">
+            {% for info in developed_by %}
+            <div class="col-md-12">
+                <p class="site-info">Designed and <br> Developed by <a href="{{info.company_website}}">{{info.company_name}}</a></p>
+                <ul class="social-block">
+                    <li><a href="{{info.twitter_link}}"><i class="ion-social-twitter"></i></a></li>
+                    <li><a href="{{info.fb_link}}"><i class="ion-social-facebook"></i></a></li>
+                    <li><a href="{{info.linkedin_link}}"><i class="ion-social-linkedin-outline"></i></a></li>
+                    <li><a href="{{info.email}}"><i class="ion-social-googleplus"></i></a></li>
+                </ul>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</footer>
+
+<!-- script -->
+<script src="{% static 'bower_components/jquery/dist/jquery.min.js' %}"></script>
+<script src="{% static 'bower_components/bootstrap/dist/js/bootstrap.min.js' %}"></script>
+<script src="{% static 'bower_components/smooth-scroll/dist/js/smooth-scroll.min.js' %}"></script>
+<script src="{% static 'assets/js/main.js' %}"></script>
+</body>
+</html>
