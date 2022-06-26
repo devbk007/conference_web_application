@@ -8,7 +8,7 @@ When a registration is cancelled, user under hold will be automatically given st
 Once a registration is cancelled, user with status 'hold' position will be automatically assigned status as 'registered'.
 
 # Database Model
-![Database Model](https://github.com/devbk007/conference_web_application/blob/master/ytube_thumbnail.png?raw=true)
+![Database Model](https://github.com/devbk007/conference_web_application/blob/master/Conference.png?raw=true)
 
 # Steps to install application
 1. Create a virtual enviroment
@@ -54,3 +54,6 @@ Once a registration is cancelled, user with status 'hold' position will be autom
 
 #### Tip
 If refresh error occur, then delete the token files and rerun.
+
+# Demo Video
+[![Video Thumbnail](https://github.com/devbk007/conference_web_application/blob/master/ytube_thumbnail.png)](https://youtu.be/d0Aof4ypAqI)
