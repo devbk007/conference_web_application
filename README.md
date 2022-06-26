@@ -54,3 +54,6 @@ Once a registration is cancelled, user with status 'hold' position will be autom
 
 #### Tip
 If refresh error occur, then delete the token files and rerun.
+
+# Demo Video
+[![Video Thumbnail](https://github.com/devbk007/conference_web_application/blob/master/ytube_thumbnail.png)](https://youtu.be/d0Aof4ypAqI)
