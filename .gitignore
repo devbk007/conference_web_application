@@ -3,3 +3,4 @@ conference/conference/__pycache__/
 conference/webpage/migrations/
 conference/token files/
 conference/webpage/email_api/client_secret.json
+added email.txt

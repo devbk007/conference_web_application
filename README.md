@@ -33,9 +33,9 @@ Once a registration is cancelled, user with status 'hold' position will be autom
 4. Create a project, in Google accounts, setup OAuth consent screen and create an OAuthID. 
     [![Watch the video for step by step setup]](https://youtu.be/6bzzpda63H0)   
 
-5. Add a test user in the OAuth consent screen with the requred email id.
-6. Download the credentials as Json file and save as client_secret.json in conference/webpage/email_api/ directory.
-7. Add recipient email id by replacing '<recipient_email_id>' in line 16, message in line 14 and subject in line 17 of conference/webpage/email_api/send_email.py.
+5. Add a test user in the OAuth consent screen with the required email id.
+6. Enable Gmail API.
+7. Download the credentials as Json file and save as client_secret.json in conference/webpage/email_api/ directory.
 8. Perform migrations.
     ```
     python manage.py makemigrations
