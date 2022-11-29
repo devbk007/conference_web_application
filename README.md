@@ -52,6 +52,11 @@ Once a registration is cancelled, user with status 'hold' position will be autom
     ```
     A prompt screen will appear, if running for the first time. Configure by using the test user email id given in step 5.
 
+11. If "No such table " error happens, run the following command
+     ```
+    python manage.py migrate --run-syncdb
+    ```
+
 #### Tip
 If refresh error occur, then delete the token files and rerun.
 
